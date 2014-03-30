@@ -1,0 +1,24 @@
+{
+  "name": "datetime-arrays",
+  "version": "0.1.0",
+  "description": "Small library for handling times and date as arrays.",
+  "main": "datetime-arrays.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/colinbate/datetime-arrays"
+  },
+  "keywords": [
+    "date",
+    "time",
+    "datetime",
+    "arrays"
+  ],
+  "author": "Colin Bate <colin@colinbate.com>",
+  "license": "MIT"
+}
