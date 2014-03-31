@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/.bin/jasmine-node --matchAll test/datetime-arrays_tests.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,9 @@
     "datetime",
     "arrays"
   ],
+  "devDependencies": {
+    "jasmine-node": "~2.0.0"
+  },
   "author": "Colin Bate <colin@colinbate.com>",
   "license": "MIT"
 }
