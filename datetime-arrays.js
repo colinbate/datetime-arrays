@@ -1,10 +1,11 @@
 (function(root, factory) {
+  'use strict';
   /* CommonJS */
-  if (typeof exports == 'object') {
+  if (typeof exports === 'object') {
     module.exports = factory();
   }
   /* AMD module */
-  else if (typeof define == 'function' && define.amd) {
+  else if (typeof define === 'function' && define.amd) {
     define(factory);
   }
   /* Browser global */
@@ -24,7 +25,7 @@
   Month  := 1..12
   Day    := 1..31
   */
-  var something = null,
+  var timeRegex = /^(\d{1,2}):(\d\d)(:(\d\d))?\s*(([aApP])([mM])?)?$/,
       pad = function (value, digits, padder) {
         var str = value + '';
         padder = padder || '0';
@@ -34,7 +35,6 @@
         }
         return str;
       },
-      timeRegex = /^(\d{1,2}):(\d\d)(:(\d\d))?\s*(([aApP])([mM])?)?$/,
       jsDate = function (date) {
         return Object.prototype.toString.call(date) === '[object Date]' ? date : new Date(date);
       },
@@ -45,6 +45,9 @@
         return time[0] >= 0 && time[0] <= 23 && time[1] >= 0 && time[1] <= 59 && time[2] >= 0 && time[2] <= 59;
       },
       validateDateArray = function (arr) {
+        if (!arr) {
+          return false;
+        }
         return arr[0] >= 1 && arr[0] <= 9999 && arr[1] >= 1 && arr[1] <= 12 && arr[2] >= 1 && arr[2] <= 31;
         // TODO: Month lengths and leap years, etc.
       },
@@ -62,6 +65,17 @@
         var jsdate = jsDate(date);
         return [jsdate.getFullYear(), jsdate.getMonth()+1, jsdate.getDate()];
       },
+      dateArrayTimeToDate = function (dateArray, time) {
+        var hours, mins, secs, ret, timeOk = validateTime(time);
+        if (!validateDateArray(dateArray)) {
+          return null;
+        }
+        hours = timeOk && time[0] || 0;
+        mins = timeOk && time[1] || 0;
+        secs = timeOk && time[2] || 0;
+        ret = new Date(dateArray[0], dateArray[1] - 1, dateArray[2], hours, mins, secs);
+        return ret;
+      },
       compareTime = function (a, b) {
         return (a[0]-b[0]) * 3600 + (a[1]-b[1]) * 60 + (a[2]-b[2]);
       },
@@ -73,7 +87,7 @@
             hours, arr;
         if (!match) {
           return null;
-        };
+        }
         hours = match[1] * 1;
         if (hours < 12) {
           hours += ((match[5]||'').toLowerCase()[0] === 'p' ? 12 : 0);
@@ -100,5 +114,6 @@
       fromDate: dateToDateArray,
       isValid: validateDateArray
     },
+    toDate: dateArrayTimeToDate
   };
 }));
