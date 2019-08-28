@@ -17,7 +17,7 @@ npm install datetime-arrays
 Or you can clone the repository:
 
 ```
-hg clone https://bitbucket.org/colinbate/datetime-arrays
+git clone https://github.com/colinbate/datetime-arrays
 ```
 
 This script is packaged as a UMD module, so you should be able to incorporate it into your project as expected. In node.js you should be able to `require('datetime-arrays');` or in the browser:
